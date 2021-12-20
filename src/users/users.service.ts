@@ -5,6 +5,7 @@ import { User } from './user.entity'
 import { Repository } from 'typeorm'
 import { GetUserByIdResponseDto } from './dto/get-user-by-id.dto'
 import { UpdateUserBodyDto, UpdateUserResponseDto } from './dto/update-user.dto'
+import { IPaginationOptions, paginate, Pagination } from 'nestjs-typeorm-paginate'
 
 @Injectable()
 export class UsersService {
@@ -29,5 +30,9 @@ export class UsersService {
 
   public async deleteUser(id: string): Promise<void> {
     await this.usersRepository.delete({ id })
+  }
+
+  async paginate(options: IPaginationOptions): Promise<Pagination<User>> {
+    return paginate<User>(this.usersRepository, options)
   }
 }

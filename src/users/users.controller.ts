@@ -1,4 +1,16 @@
-import { Body, Controller, Delete, Get, OnModuleInit, Param, Patch, Post } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  DefaultValuePipe,
+  Delete,
+  Get,
+  OnModuleInit,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+  Query
+} from '@nestjs/common'
 import { UsersService } from './users.service'
 import { CreateUserBodyDto, CreateUserResponseDto } from './dto/create-user.dto'
 import { GetUserByIdParamsDto, GetUserByIdResponseDto } from './dto/get-user-by-id.dto'
@@ -37,9 +49,14 @@ export class UsersController implements OnModuleInit {
   }
 
   @Get()
-  public async paginate(): Promise<unknown> {
-    // TODO: Implement route.
-    return
+  public async paginate(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page = 1,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit = 10
+  ): Promise<unknown> {
+    return this.usersService.paginate({
+      page,
+      limit
+    })
   }
 
   @Post('publish-user')

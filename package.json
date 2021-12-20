@@ -6,6 +6,11 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "dc:up": "docker-compose up -d",
+    "dc:stop": "docker-compose stop",
+    "dc:shell": "docker-compose exec recruitment-task-75104832-7773-4dee-997a-84903fc5e0b7 bash",
+    "dc:logs": "docker-compose logs --follow --timestamps --tail 1000 recruitment-task-75104832-7773-4dee-997a-84903fc5e0b7",
+    "dc:dev": "npm run dc:up && npm run dc:logs",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",

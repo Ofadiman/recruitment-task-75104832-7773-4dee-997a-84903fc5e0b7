@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { User } from './user.entity'
 import { Repository } from 'typeorm'
 import { GetUserByIdResponseDto } from './dto/get-user-by-id.dto'
+import { UpdateUserBodyDto, UpdateUserResponseDto } from './dto/update-user.dto'
 
 @Injectable()
 export class UsersService {
@@ -20,5 +21,9 @@ export class UsersService {
       throw new NotFoundException(`User with id ${id} not found!`)
     }
     return user
+  }
+
+  public async updateUser(id: string, body: UpdateUserBodyDto): Promise<UpdateUserResponseDto> {
+    return this.usersRepository.save({ id, ...body })
   }
 }

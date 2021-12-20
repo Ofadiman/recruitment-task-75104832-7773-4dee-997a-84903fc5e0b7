@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/commo
 import { UsersService } from './users.service'
 import { CreateUserBodyDto, CreateUserResponseDto } from './dto/create-user.dto'
 import { GetUserByIdParamsDto, GetUserByIdResponseDto } from './dto/get-user-by-id.dto'
+import { UpdateUserBodyDto, UpdateUserParamsDto, UpdateUserResponseDto } from './dto/update-user.dto'
 
 @Controller('users')
 export class UsersController {
@@ -19,10 +20,12 @@ export class UsersController {
     return this.usersService.getUserById(params.id)
   }
 
-  @Patch(`:id`)
-  public async updateUser(): Promise<unknown> {
-    // TODO: Implement route.
-    return
+  @Patch(`:userId`)
+  public async updateUser(
+    @Body() body: UpdateUserBodyDto,
+    @Param() params: UpdateUserParamsDto
+  ): Promise<UpdateUserResponseDto> {
+    return this.usersService.updateUser(params.userId, body)
   }
 
   @Delete(`:id`)

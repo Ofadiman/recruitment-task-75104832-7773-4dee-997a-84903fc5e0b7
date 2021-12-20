@@ -11,13 +11,15 @@ services:
         - group_id=$GID
         - user=$USER
     ports:
-      - "3000:3000"
+      - '3000:3000'
     volumes:
       - .:/app
     depends_on:
       - recruitment-task-75104832-7773-4dee-997a-84903fc5e0b7-database
+      - recruitment-task-75104832-7773-4dee-997a-84903fc5e0b7-redis
     links:
       - recruitment-task-75104832-7773-4dee-997a-84903fc5e0b7-database
+      - recruitment-task-75104832-7773-4dee-997a-84903fc5e0b7-redis
     working_dir: /app
     command: npm run start:debug
 
@@ -25,7 +27,7 @@ services:
     container_name: recruitment-task-75104832-7773-4dee-997a-84903fc5e0b7-database
     image: library/postgres:13.4-alpine
     ports:
-      - "5432:5432"
+      - '5432:5432'
     volumes:
       - type: volume
         source: recruitment-task-75104832-7773-4dee-997a-84903fc5e0b7-database
@@ -34,6 +36,12 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: postgres
+
+  recruitment-task-75104832-7773-4dee-997a-84903fc5e0b7-redis:
+    container_name: recruitment-task-75104832-7773-4dee-997a-84903fc5e0b7-redis
+    image: library/redis:6.2.6-alpine
+    ports:
+      - '6379:6379'
 
 volumes:
   recruitment-task-75104832-7773-4dee-997a-84903fc5e0b7-database:

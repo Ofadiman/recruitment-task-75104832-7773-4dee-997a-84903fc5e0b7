@@ -8,7 +8,7 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   public id: string
 
-  @Column()
+  @Column({ unique: true })
   public email: string
 
   @Column({ length: MAXIMUM_FIRST_NAME_LENGTH })

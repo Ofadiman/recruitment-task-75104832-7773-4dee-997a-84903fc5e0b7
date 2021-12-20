@@ -1,6 +1,13 @@
-import { PickType } from '@nestjs/swagger'
-import { User } from '../user.entity'
+import { IsUUID } from 'class-validator'
 
-export class GetUserByIdParamsDto extends PickType(User, [`id`]) {}
+export class GetUserByIdParamsDto {
+  @IsUUID()
+  public userId: string
+}
 
-export class GetUserByIdResponseDto extends PickType(User, [`firstName`, `email`, `lastName`, `id`]) {}
+export class GetUserByIdResponseDto {
+  public email: string
+  public firstName: string
+  public id: string
+  public lastName: string
+}

@@ -14,11 +14,9 @@ export class UsersController {
     return this.usersService.createUser(body)
   }
 
-  @Get(`:id`)
-  public async getUser(@Param() params: GetUserByIdParamsDto): Promise<GetUserByIdResponseDto> {
-    console.log(`params`)
-    console.log(JSON.stringify(params, null, 2))
-    return this.usersService.getUserById(params.id)
+  @Get(`:userId`)
+  public async getUserById(@Param() params: GetUserByIdParamsDto): Promise<GetUserByIdResponseDto> {
+    return this.usersService.getUserById(params.userId)
   }
 
   @Patch(`:userId`)

@@ -3,6 +3,7 @@ import { UsersService } from './users.service'
 import { CreateUserBodyDto, CreateUserResponseDto } from './dto/create-user.dto'
 import { GetUserByIdParamsDto, GetUserByIdResponseDto } from './dto/get-user-by-id.dto'
 import { UpdateUserBodyDto, UpdateUserParamsDto, UpdateUserResponseDto } from './dto/update-user.dto'
+import { DeleteUserParamsDto } from './dto/delete-user.dto'
 
 @Controller('users')
 export class UsersController {
@@ -28,10 +29,9 @@ export class UsersController {
     return this.usersService.updateUser(params.userId, body)
   }
 
-  @Delete(`:id`)
-  public async deleteUser(): Promise<unknown> {
-    // TODO: Implement route.
-    return
+  @Delete(`:userId`)
+  public async deleteUser(@Param() params: DeleteUserParamsDto): Promise<void> {
+    return this.usersService.deleteUser(params.userId)
   }
 
   @Get()

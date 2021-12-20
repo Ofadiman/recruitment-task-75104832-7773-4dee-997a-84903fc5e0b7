@@ -26,4 +26,8 @@ export class UsersService {
   public async updateUser(id: string, body: UpdateUserBodyDto): Promise<UpdateUserResponseDto> {
     return this.usersRepository.save({ id, ...body })
   }
+
+  public async deleteUser(id: string): Promise<void> {
+    await this.usersRepository.delete({ id })
+  }
 }
